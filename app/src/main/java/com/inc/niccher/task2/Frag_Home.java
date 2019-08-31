@@ -37,7 +37,6 @@ public class Frag_Home extends Fragment {
         cvestate=fraghome.findViewById(R.id.cardestate);
         cvadcar=fraghome.findViewById(R.id.cardaddcar);
         cvadest=fraghome.findViewById(R.id.cardaddestate);
-        cvprof=fraghome.findViewById(R.id.cardprof);
 
         cvcars.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +67,13 @@ public class Frag_Home extends Fragment {
         cvadcar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Add_Car fracar=new Add_Car();
+                Frag_CarFilter fracar=new Frag_CarFilter();
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.maincontaina, fracar);
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();*/
+                fragmentTransaction.commit();
 
                 //startActivity(new Intent(getActivity(), Add_Car.class));
             }
@@ -94,15 +93,6 @@ public class Frag_Home extends Fragment {
                 //startActivity(new Intent(getActivity(), Add_Estate.class));
             }
         });
-
-        cvprof.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Add_Car fracar=new Add_Car();
-                //startActivity(new Intent(getActivity(), Act_myProfile.class));
-            }
-        });
-
 
         return fraghome;
     }

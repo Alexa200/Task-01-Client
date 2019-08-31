@@ -86,73 +86,28 @@ public class Casa extends AppCompatActivity implements NavigationView.OnNavigati
         targ=getIntent();
 
         GetTarget();
-        LoadUsa();
     }
 
     private void GetTarget() {
-        try {
-            had=targ.getStringExtra("PostUUIDCode")+"--";
-            Log.e("getStringExtra", "GetTarget: "+had );
-            if (had.equals("Posts--")){
-                Fragment frags=null;
-                getSupportActionBar().setTitle("Posts");
-                frags=new Frag_PostV();
-                FragmentManager frman0=getSupportFragmentManager();
-                frman0.beginTransaction().replace(R.id.maincontaina,frags).commit();
+        had=targ.getStringExtra("PostUUIDCode")+"--";
+        //Log.e("getStringExtra", "GetTarget: "+had );
+        if (had.equals("Posts--")){
+            Fragment frags=null;
+            getSupportActionBar().setTitle("Posts");
+            frags=new Frag_PostV();
+            FragmentManager frman0=getSupportFragmentManager();
+            frman0.beginTransaction().replace(R.id.maincontaina,frags).commit();
 
-            }else {
-                Fragment frags=null;
-                getSupportActionBar().setTitle("Dashboard");
-                frags=new Frag_Home();
-                FragmentManager frman0=getSupportFragmentManager();
-                frman0.beginTransaction().replace(R.id.maincontaina,frags).commit();
-            }
-            had=null;
-        }catch (Exception es){
+        }else {
             Fragment frags=null;
             getSupportActionBar().setTitle("Dashboard");
             frags=new Frag_Home();
             FragmentManager frman0=getSupportFragmentManager();
             frman0.beginTransaction().replace(R.id.maincontaina,frags).commit();
-
-            Log.e("getStringError", "GetTarget: "+es );
         }
+        had=null;
     }
 
-    private void LoadUsa() {
-        //Toast.makeText(this, "Uuid"+userf.getUid(), Toast.LENGTH_LONG).show();
-        try {
-            dref1= FirebaseDatabase.getInstance().getReference("Task1Admin").child(userf.getUid());
-            dref1.keepSynced(true);
-
-            dref1.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    //aUid, aEmail, aUsername, aPhone, aProfile, aProfilethumb;
-                    gUsername= (String) dataSnapshot.child("aUsername").getValue();
-                    gEmail= (String) dataSnapshot.child("aEmail").getValue();
-                    gProfile=dataSnapshot.child("aProfile").getValue().toString();
-                    usr_name.setText(gUsername);
-                    usr_email.setText(gEmail);
-
-                    try {
-                        Picasso.get().load(gProfile).into(usr_img);
-
-                    }catch (Exception ex){
-                        Picasso.get().load(R.drawable.ic_defuser).into(usr_img);
-                        Toast.makeText(Casa.this, "Picasso.get() Error"+ex, Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }catch (Exception ex){
-            Log.e("Casa ", "LoadUsa: \n" +ex.getMessage());
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

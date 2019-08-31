@@ -81,8 +81,8 @@ public class Adpter_Car extends RecyclerView.Adapter<Adpter_Car.Shika>{
         holder.viu_Bod.setText(kar.getcBody());
         holder.viu_Mak.setText(kar.getcMaker());
         holder.viu_Conditio.setText(kar.getcCondition());
-        holder.viu_Pric.setText(kar.getcEngine());
-        holder.viu_Mile.setText(kar.getcMileage());
+        holder.viu_Pric.setText(kar.getcPrice());
+        holder.viu_region.setText(kar.getcRegion());
 
         Postid=kar.getcKey();
 
@@ -98,34 +98,6 @@ public class Adpter_Car extends RecyclerView.Adapter<Adpter_Car.Shika>{
         });
     }
 
-    private void DelPost() {
-        final ProgressDialog pgd=new ProgressDialog(cnt);
-        pgd.setMessage("Deleting Post");
-        pgd.show();
-        try {
-            dref1= FirebaseDatabase.getInstance().getReference("Posteds/"+userf.getUid()+"/Vehicles/"+Postid);
-
-            dref1.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    //Log.e("Adpter Car ", "DelPost: \n" +dref1.toString());
-                    dref1.removeValue();
-                    pgd.dismiss();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    //Log.e("Adpter Car ", "DelPost: onCancelled\n" +databaseError.getMessage());
-                    pgd.dismiss();
-                }
-            });
-        }catch (Exception ex){
-            pgd.dismiss();
-            Log.e("Adpter Car ", "DelPost: \n" +ex.getMessage());
-        }
-
-    }
-
     @Override
     public int getItemCount() {
         return poslist.size();
@@ -133,7 +105,7 @@ public class Adpter_Car extends RecyclerView.Adapter<Adpter_Car.Shika>{
 
     class Shika extends RecyclerView.ViewHolder {
 
-        public TextView viu_Mak,viu_Bod,viu_Conditio,viu_Pric,viu_Mile;
+        public TextView viu_Mak,viu_Bod,viu_Conditio,viu_Pric,viu_region;
         public ImageView viu_carimg;
         RelativeLayout viu_PosDetail;
 
@@ -144,7 +116,7 @@ public class Adpter_Car extends RecyclerView.Adapter<Adpter_Car.Shika>{
             viu_Bod = itemView.findViewById(R.id.disp_body);
             viu_Conditio = itemView.findViewById(R.id.disp_condition);
             viu_Pric = itemView.findViewById(R.id.disp_price);
-            viu_Mile = itemView.findViewById(R.id.disp_mileage);
+            viu_region = itemView.findViewById(R.id.disp_region);
 
             viu_carimg = itemView.findViewById(R.id.disp_imgs);
             viu_PosDetail = itemView.findViewById(R.id.disp_post);

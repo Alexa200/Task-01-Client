@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Task Client</string>
+    <string name="app_name">Task-Client</string>
 
     <string name="dopen">Opened</string>
     <string name="dclose">Closed</string>

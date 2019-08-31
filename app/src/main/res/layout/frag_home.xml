@@ -6,7 +6,7 @@
     android:id="@+id/homies"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f299b6">
+    android:background="#bfbebe">
 
         <!--<android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Vehicles"
+                            android:text="All Vehicles"
                             android:layout_marginTop="10dp"
                             android:textStyle="bold"/>
                         <View
@@ -115,7 +115,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Real Estates"
+                            android:text="All Real Estates"
                             android:layout_marginTop="10dp"
                             android:textStyle="bold"/>
                         <View
@@ -159,12 +159,12 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:background="@drawable/backblu"
-                            android:src="@drawable/ic_addcar"
+                            android:src="@drawable/ic_filter"
                             android:padding="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Add Vehicles"
+                            android:text="Vehicles"
                             android:layout_marginTop="10dp"
                             android:textStyle="bold"/>
                         <View
@@ -175,7 +175,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Post vehicles for Sale"
+                            android:text="Filter Posted vehicles"
                             android:layout_marginTop="10dp"/>
 
                     </LinearLayout>
@@ -199,12 +199,12 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:background="@drawable/backpik"
-                            android:src="@drawable/ic_addestate"
+                            android:src="@drawable/ic_filter"
                             android:padding="10dp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Add Estates"
+                            android:text="Real Estates"
                             android:layout_marginTop="10dp"
                             android:textStyle="bold"/>
                         <View
@@ -215,7 +215,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Post Estates for sales"
+                            android:text="Filter Posted Estates"
                             android:layout_marginTop="10dp"/>
 
                     </LinearLayout>
@@ -223,56 +223,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:clipToPadding="false">
-
-                <android.support.v7.widget.CardView
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:id="@+id/cardprof"
-                    android:layout_width="150dp"
-                    android:layout_height="180dp"
-                    android:layout_margin="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            android:background="@drawable/backpurple"
-                            android:src="@drawable/ic_profile"
-                            android:padding="10dp"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="Profile"
-                            android:textStyle="bold" />
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="10dp"
-                            android:background="#9ea5ac"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="My Details" />
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-            </LinearLayout>
 
         </LinearLayout>
 
