@@ -12,11 +12,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,7 +44,7 @@ public class Casa extends AppCompatActivity implements NavigationView.OnNavigati
     ImageView usr_img,popimg;
     Dialog myDialog;
 
-    String gEmail,gUsername,gProfile,had;
+    String had;
 
     Intent targ=null;
 
@@ -108,7 +111,6 @@ public class Casa extends AppCompatActivity implements NavigationView.OnNavigati
         had=null;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (togo.onOptionsItemSelected(item)){
@@ -120,6 +122,15 @@ public class Casa extends AppCompatActivity implements NavigationView.OnNavigati
             Toast.makeText(this, "Settings Pressed", Toast.LENGTH_SHORT).show();
             return true;
         }
+
+        if (id == R.id.act_search) {
+            //finish();
+            startActivity(new Intent(Casa.this,PostCarSearch.class));
+            //Toast.makeText(this, "Init Search", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -137,7 +148,51 @@ public class Casa extends AppCompatActivity implements NavigationView.OnNavigati
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_more, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.act_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         return true;
+        /*
+                MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_more, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.act_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+        return true;
+        */
     }
 
     @Override

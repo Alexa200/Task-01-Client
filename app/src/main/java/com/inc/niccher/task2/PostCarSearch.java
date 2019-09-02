@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,7 +35,7 @@ public class PostCarSearch extends AppCompatActivity {
 
     RecyclerView postlist;
     List<Mod_V> modpost;
-    Adpter_Car adpost;
+    Adpter_CarF adpost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +61,13 @@ public class PostCarSearch extends AppCompatActivity {
 
         modpost=new ArrayList<>();
 
+        Toast.makeText(this, "Searcher", Toast.LENGTH_SHORT).show();
+
         FetcpostV();
     }
 
     private void FetcpostV() {
-        DatabaseReference dref3 = FirebaseDatabase.getInstance().getReference("Posteds/"+userf.getUid()+"/Vehicles");
+        DatabaseReference dref3 = FirebaseDatabase.getInstance().getReference("Posteds/Vehicles");
         dref3.keepSynced(true);
 
         dref3.addValueEventListener(new ValueEventListener() {
@@ -76,7 +79,7 @@ public class PostCarSearch extends AppCompatActivity {
 
                     modpost.add(poss);
 
-                    adpost=new Adpter_Car(PostCarSearch.this,modpost);
+                    adpost=new Adpter_CarF(PostCarSearch.this,modpost);
                     postlist.setAdapter(adpost);
                 }
 
@@ -115,23 +118,17 @@ public class PostCarSearch extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                //adapter.getFilter().filter(newText);
+                adpost.getFilter().filter(newText);
                 return false;
             }
         });
         return true;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (mAuth.getCurrentUser() == null) {
-        }
-    }
 }

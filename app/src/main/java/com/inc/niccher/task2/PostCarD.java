@@ -1,14 +1,21 @@
 package com.inc.niccher.task2;
 
+import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,11 +39,13 @@ public class PostCarD extends AppCompatActivity {
     ImageView vImg0;
     ViewPager viewP;
 
-    TextView vMaker,vBody,vModel,vYear,vMileage,vvondition,vEngine,vvolor,vTransmision,vInterior,vFuel,vDesv,vKey,vTime;
+    TextView vMaker,vBody,vModel,vYear,vMileage,vvondition,vEngine,vvolor,vTransmision,vInterior,vFuel,vDesv,vKey,vTime,vPrice,vRegion;
 
     ProgressDialog pds2;
+    Button owna,cont_call,cont_sms;
+    Dialog contak;
 
-    private String pat,imageUrls[],imagelement[];
+    private String pat,imageUrls[],imagelement[],aowna;
     List<String> urllist = new ArrayList<String>();
     List<String> urlelement = new ArrayList<String>();
     int imcount;
@@ -90,6 +99,20 @@ public class PostCarD extends AppCompatActivity {
             }
         });*/
 
+        contak=new Dialog(this);
+        contak.setContentView(R.layout.part_owna);
+
+        cont_call=contak.findViewById(R.id.cnt_Call);
+        cont_sms=contak.findViewById(R.id.cnt_Call);
+
+        cont_call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Call();
+            }
+        });
+
+
         vMaker=findViewById(R.id.disp_maker);
         vBody=findViewById(R.id.disp_body);
         vYear=findViewById(R.id.disp_year);
@@ -103,11 +126,23 @@ public class PostCarD extends AppCompatActivity {
         vDesv=findViewById(R.id.disp_desc);
         vTime=findViewById(R.id.disp_time);
 
+        vRegion=findViewById(R.id.disp_region);
+        vPrice=findViewById(R.id.disp_price);
+
+        owna=findViewById(R.id.disp_contak);
+
         //vImg0=findViewById(R.id.disp_imgs);
 
         viewP= (ViewPager) findViewById(R.id.view_pager);
 
         LoadPost();
+
+        owna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                contak.show();
+            }
+        });
     }
 
     private void LoadPost(){
@@ -130,6 +165,11 @@ public class PostCarD extends AppCompatActivity {
                     vFuel.setText((String) dataSnapshot.child("cFuel").getValue());
                     vDesv.setText((String) dataSnapshot.child("cDesc").getValue());
                     vTime.setText((String) dataSnapshot.child("cTime").getValue());
+
+                    vRegion.setText((String) dataSnapshot.child("cRegion").getValue());
+                    vPrice.setText((String) dataSnapshot.child("cPrice").getValue());
+
+                    aowna=(String) dataSnapshot.child("cOwner").getValue();
 
                     try {
                         //Picasso.get().load((String) dataSnapshot.child("cImg0").getValue()).into(vImg0);
@@ -187,6 +227,43 @@ public class PostCarD extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void Call(){
+        DatabaseReference dref4 = FirebaseDatabase.getInstance().getReference("Task1Admin/"+aowna);
+        dref4.keepSynced(true);
+
+        dref4.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String Phone=(String) dataSnapshot.child("aPhone").getValue();
+
+                Intent col=new Intent(Intent.ACTION_CALL);
+                if (Phone.trim().isEmpty()){
+                    //col.setData(Uri.parse("",""));
+                    Toast.makeText(PostCarD.this, "No Phone number Provided by the Admin", Toast.LENGTH_SHORT).show();
+                }else {
+                    col.setData(Uri.parse("tel:"+Phone));
+
+                    if (ActivityCompat.checkSelfPermission(PostCarD.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                        Toast.makeText(PostCarD.this, "Please Grant permision to Call", Toast.LENGTH_SHORT).show();
+                        ReqPerm();
+                    }else {
+                        startActivity(col);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void ReqPerm(){
+        ActivityCompat.requestPermissions(PostCarD.this,new String[]{Manifest.permission.CALL_PHONE},1);
     }
 
     @Override

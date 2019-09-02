@@ -4,43 +4,38 @@ package com.inc.niccher.task2;
  * Created by niccher on 29/05/19.
  */
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class Adpter_Car extends RecyclerView.Adapter<Adpter_Car.Shika>{
+public class Adpter_CarF extends RecyclerView.Adapter<Adpter_CarF.Shika> implements Filterable{
 
     Context cnt;
     List<Mod_V> poslist;
-    String Postid=null;
+    List<Mod_V> poslistx;
 
+    String Postid=null;
 
     FirebaseUser fusa;
 
-    public Adpter_Car(Context cnt, List<Mod_V> poslist) {
+    public Adpter_CarF(Context cnt, List<Mod_V> poslist) {
         this.cnt = cnt;
         this.poslist = poslist;
     }
@@ -83,6 +78,47 @@ public class Adpter_Car extends RecyclerView.Adapter<Adpter_Car.Shika>{
     public int getItemCount() {
         return poslist.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Mod_V> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(poslist);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Mod_V maker : poslist) {
+                    if (maker.getcMaker().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(maker);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            try {
+                poslistx.clear();
+                poslistx.addAll((List) results.values);
+                notifyDataSetChanged();
+            }catch (Exception e){
+                Toast.makeText(cnt, "NullPointerException\n"+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     class Shika extends RecyclerView.ViewHolder {
 

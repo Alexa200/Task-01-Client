@@ -11,17 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:background="@drawable/part_edit"
+        android:background="@drawable/part_contak"
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/cnt_view"
+            android:id="@+id/cnt_Call"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="View Post"
+            android:text="Call"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:drawableRight="@drawable/ic_view"/>
+            android:drawableRight="@drawable/ic_call"/>
 
         <View
             android:layout_width="match_parent"
@@ -29,27 +29,14 @@
             android:background="#565656" />
 
         <Button
-            android:id="@+id/cnt_edit"
+            android:id="@+id/cnt_SMS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Edit Post"
+            android:text="SMS"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:drawableRight="@drawable/ic_edit"/>
+            android:drawableRight="@drawable/ic_sms"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#565656" />
-
-        <Button
-            android:id="@+id/cnt_delete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Delete Post"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:drawableRight="@drawable/ic_delete"/>
 
     </LinearLayout>
 
