@@ -25,6 +25,8 @@
         <activity android:name=".PostCarD" />
         <activity android:name=".PostCarSearch" />
 
+        <activity android:name=".Video_Car"/>
+
     </application>
 
 </manifest>

@@ -42,7 +42,7 @@ public class PostCarD extends AppCompatActivity {
     TextView vMaker,vBody,vModel,vYear,vMileage,vvondition,vEngine,vvolor,vTransmision,vInterior,vFuel,vDesv,vKey,vTime,vPrice,vRegion;
 
     ProgressDialog pds2;
-    Button owna,cont_call,cont_sms;
+    Button owna,cont_call,cont_sms,seevid;
     Dialog contak;
 
     private String pat,imageUrls[],imagelement[],aowna;
@@ -104,6 +104,16 @@ public class PostCarD extends AppCompatActivity {
 
         cont_call=contak.findViewById(R.id.cnt_Call);
         cont_sms=contak.findViewById(R.id.cnt_Call);
+        seevid=findViewById(R.id.disp_vid);
+
+        seevid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent vid=new Intent(PostCarD.this, Video_Car.class);
+                vid.putExtra("ChildNode",pat);
+                startActivity(vid);
+            }
+        });
 
         cont_call.setOnClickListener(new View.OnClickListener() {
             @Override

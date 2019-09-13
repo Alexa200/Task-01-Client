@@ -26,15 +26,6 @@
                     android:orientation="vertical"
                     android:id="@+id/posdet">
 
-                    <!--<ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="centerCrop"
-                        android:padding="4dp"
-                        android:layout_marginTop="4dp"
-                        android:background="@drawable/part_round"
-                        android:id="@+id/disp_imgs"/>-->
-
                     <android.support.v4.view.ViewPager
                         xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -368,6 +359,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/posdet"
+                    android:id="@+id/posVID"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:id="@+id/disp_vid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/posdet"
+                        android:gravity="center_horizontal"
+                        android:text="See Videos" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/posVID"
                     android:gravity="center_horizontal">
 
                     <Button
