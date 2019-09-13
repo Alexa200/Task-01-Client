@@ -37,37 +37,11 @@ public class Frag_CarFilter extends Fragment {
         // Inflate the layout for this fragment
         View fragfilte= inflater.inflate(R.layout.frag_carfilter, container, false);
 
-        vmaker = (Spinner) fragfilte.findViewById(R.id.cmaka);
-        vmaker.setOnItemSelectedListener(new CarSelecta());
-
-        vbody = (Spinner) fragfilte.findViewById(R.id.cbody);
-        vbody.setOnItemSelectedListener(new CarSelecta());
-
-        vyear = (Spinner) fragfilte.findViewById(R.id.cyear);
-        vyear.setOnItemSelectedListener(new CarSelecta());
-
-        vmileage = (Spinner) fragfilte.findViewById(R.id.cmileage);
-        vmileage.setOnItemSelectedListener(new CarSelecta());
-
-        vcondi = (Spinner) fragfilte.findViewById(R.id.ccond);
-        vcondi.setOnItemSelectedListener(new CarSelecta());
-
-        vregion = (Spinner) fragfilte.findViewById(R.id.cregion);
-        vregion.setOnItemSelectedListener(new CarSelecta());
-
-        InitSearch();
-
         return fragfilte;
     }
 
     private void InitSearch(){
-        if ( (vmaker.getSelectedItemId()!=0) ){
-            Toast.makeText(getContext(), "Maker was "+String.valueOf(vmaker.getSelectedItem()), Toast.LENGTH_LONG).show();
-        }
 
-        if ( (vmaker.getSelectedItem()!="Manufacturer") ){
-            Toast.makeText(getActivity(), "Maker is "+String.valueOf(vmaker.getSelectedItem()), Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override
