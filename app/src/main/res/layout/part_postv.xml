@@ -3,34 +3,35 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
     android:background="#eaeaea">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/part_roun"
-        android:id="@+id/disp_post">
+        android:id="@+id/disp_post"
+        android:background="@drawable/part_roun">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                android:padding="4dp"
+                android:id="@+id/disp_imgs"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/part_round"
-                android:id="@+id/disp_imgs"/>
+                android:padding="4dp"
+                android:scaleType="centerCrop" />
 
             <LinearLayout
+                android:layout_marginLeft="8dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/part_rounded">
+                android:layout_gravity="center_vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,7 +44,7 @@
                         android:text="Maker "
                         android:textStyle="bold"
                         android:textSize="16sp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="0.56"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -57,23 +58,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="0.57"
                         android:text="Body "
-                        android:textStyle="bold"
                         android:textSize="16sp"
-                        android:layout_weight="1"/>
+                        android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/disp_body"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="(Value)"
-                        android:id="@+id/disp_body"
-                        android:textSize="16sp"
-                        android:layout_weight="1"/>
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -88,7 +90,7 @@
                         android:text="Condition"
                         android:textStyle="bold"
                         android:textSize="16sp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="0.60"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -111,7 +113,7 @@
                         android:text="Region "
                         android:textStyle="bold"
                         android:textSize="16sp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="0.62"/>
 
                     <TextView
                         android:id="@+id/disp_region"
@@ -134,7 +136,7 @@
                         android:text="Price "
                         android:textStyle="bold"
                         android:textSize="16sp"
-                        android:layout_weight="1"/>
+                        android:layout_weight="0.63"/>
 
                     <TextView
                         android:layout_width="0dp"

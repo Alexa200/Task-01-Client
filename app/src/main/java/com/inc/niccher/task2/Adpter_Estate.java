@@ -39,8 +39,6 @@ public class Adpter_Estate extends RecyclerView.Adapter<Adpter_Estate.Shika>{
     Dialog conf;
     String Postid=null;
 
-    Button edpos,delpos,viupos;
-
     FirebaseUser fusa;
 
     FirebaseAuth mAuth;
@@ -54,7 +52,7 @@ public class Adpter_Estate extends RecyclerView.Adapter<Adpter_Estate.Shika>{
 
     @Override
     public Shika onCreateViewHolder(ViewGroup parent, int viewType) {
-        View infla= LayoutInflater.from(cnt).inflate(R.layout.part_postv,parent,false);
+        View infla= LayoutInflater.from(cnt).inflate(R.layout.part_poste,parent,false);
 
         fusa= FirebaseAuth.getInstance().getCurrentUser();
 
@@ -75,12 +73,12 @@ public class Adpter_Estate extends RecyclerView.Adapter<Adpter_Estate.Shika>{
             holder.viu_Pric.setText(kar.getePrice());
             holder.viu_typ.setText(kar.geteType());
 
-            Picasso.get().load(kar.geteImg()).into(holder.viu_estimg);
+            Picasso.get().load(kar.geteImg0()).into(holder.viu_estimg);
 
             holder.viu_PosDetail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent posd=new Intent(cnt, PostCarD.class);
+                    Intent posd=new Intent(cnt, PostEstateD.class);
                     posd.putExtra("PostUUIDCode",(String) kar.geteKey());
                     cnt.startActivity(new Intent(posd));
                 }

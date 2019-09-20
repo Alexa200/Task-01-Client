@@ -1,7 +1,6 @@
 package com.inc.niccher.task2;
 
 import android.Manifest;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -34,17 +33,19 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class PostCarD extends AppCompatActivity {
+public class PostEstateD extends AppCompatActivity {
 
     ImageView vImg0;
     ViewPager viewP;
 
-    TextView vMaker,vBody,vModel,vYear,vMileage,vvondition,vEngine,vvolor,vTransmision,vInterior,vFuel,vDesv,vKey,vTime,vPrice,vRegion;
+    TextView _Type,_County,_CountySub,_Area,_Price,_Desc,_Time;
+    String Owna;
+
+    Button cont_call,cont_sms,cont_eml;
 
     ProgressDialog pds2;
-    Button owna,cont_call,cont_sms,cont_eml,seevid;
 
-    private String pat,imageUrls[],imagelement[],aowna;
+    private String pat,imageUrls[],imagelement[];
     List<String> urllist = new ArrayList<String>();
     List<String> urlelement = new ArrayList<String>();
     int imcount;
@@ -61,9 +62,9 @@ public class PostCarD extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.postcard);
+        setContentView(R.layout.postestated);
 
-        getSupportActionBar().setTitle("Post Details");
+        getSupportActionBar().setTitle("Estate Details");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -76,28 +77,27 @@ public class PostCarD extends AppCompatActivity {
         getta=getIntent();
 
         if (getta.getStringExtra("PostUUIDCode")==null){
-            Toast.makeText(this, "No Cross Data", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "No Cross Data", Toast.LENGTH_SHORT).show();
             finish();
 
-            Intent hom=new Intent(PostCarD.this,Casa.class);
+            Intent hom=new Intent(PostEstateD.this,Casa.class);
             hom.putExtra("PostUUIDCode","Posts");
             startActivity(hom);
         }else {
             pat=getta.getStringExtra("PostUUIDCode");
         }
 
+        _Type =findViewById(R.id.est_type);
+        _County=findViewById(R.id.est_county);
+        _CountySub=findViewById(R.id.est_subcounty);
+        _Area=findViewById(R.id.est_area);
+        _Price=findViewById(R.id.est_price);
+        _Desc=findViewById(R.id.est_desc);
+        _Time=findViewById(R.id.est_time);
+
         cont_call=findViewById(R.id.btn_cal);
         cont_sms=findViewById(R.id.btn_sms);
-        seevid=findViewById(R.id.disp_vid);
-
-        seevid.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent vid=new Intent(PostCarD.this, Video_Car.class);
-                vid.putExtra("ChildNode",pat);
-                startActivity(vid);
-            }
-        });
+        //cont_eml=findViewById(R.id.btn_eml);
 
         cont_call.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,69 +109,45 @@ public class PostCarD extends AppCompatActivity {
         cont_sms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call();
+                Sms();
             }
         });
 
-
-        vMaker=findViewById(R.id.disp_maker);
-        vBody=findViewById(R.id.disp_body);
-        vYear=findViewById(R.id.disp_year);
-        vMileage=findViewById(R.id.disp_mileage);
-        vvondition=findViewById(R.id.disp_condit);
-        vEngine=findViewById(R.id.disp_engine);
-        vvolor=findViewById(R.id.disp_color);
-        vTransmision=findViewById(R.id.disp_trans);
-        vInterior=findViewById(R.id.disp_inter);
-        vFuel=findViewById(R.id.disp_fuel);
-        vDesv=findViewById(R.id.disp_desc);
-        vTime=findViewById(R.id.disp_time);
-
-        vRegion=findViewById(R.id.disp_region);
-        vPrice=findViewById(R.id.disp_price);
-
-        owna=findViewById(R.id.btn_cal);
-
-        //vImg0=findViewById(R.id.disp_imgs);
-
-        viewP= (ViewPager) findViewById(R.id.view_pager);
+        viewP= (ViewPager) findViewById(R.id.est_img_pager);
 
         LoadPost();
     }
 
     private void LoadPost(){
-        DatabaseReference dref3 = FirebaseDatabase.getInstance().getReference("Posteds/Vehicles/"+pat);
+        DatabaseReference dref3 = FirebaseDatabase.getInstance().getReference("Posteds/Estates/"+pat);
         dref3.keepSynced(true);
         try {
             dref3.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    vMaker.setText((String) dataSnapshot.child("cMaker").getValue());
-                    vBody.setText((String) dataSnapshot.child("cBody").getValue());
-                    vYear.setText((String) dataSnapshot.child("cYear").getValue());
-                    vMileage.setText((String) dataSnapshot.child("cMileage").getValue());
-                    vvondition.setText((String) dataSnapshot.child("cCondition").getValue());
-                    vEngine.setText((String) dataSnapshot.child("cEngine").getValue());
-                    vvolor.setText((String) dataSnapshot.child("cColor").getValue());
-                    vTransmision.setText((String) dataSnapshot.child("cTransmision").getValue());
-                    vInterior.setText((String) dataSnapshot.child("cInterior").getValue());
-                    vFuel.setText((String) dataSnapshot.child("cFuel").getValue());
-                    vDesv.setText((String) dataSnapshot.child("cDesc").getValue());
-                    vTime.setText((String) dataSnapshot.child("cTime").getValue());
-
-                    vRegion.setText((String) dataSnapshot.child("cRegion").getValue());
-                    vPrice.setText((String) dataSnapshot.child("cPrice").getValue());
-
-                    aowna=(String) dataSnapshot.child("cOwner").getValue();
-
                     try {
-                        //Picasso.get().load((String) dataSnapshot.child("cImg0").getValue()).into(vImg0);
-                        Counta();
+                        _Type.setText((String) dataSnapshot.child("eType").getValue());
+                        _County.setText((String) dataSnapshot.child("eCounty").getValue());
+                        _CountySub.setText((String) dataSnapshot.child("eCountySub").getValue());
+                        _Area.setText((String) dataSnapshot.child("eArea").getValue());
+                        _Price.setText((String) dataSnapshot.child("ePrice").getValue());
+                        _Desc.setText((String) dataSnapshot.child("eDesc").getValue());
+                        //eImg0.setText((String) dataSnapshot.child("cBody").getValue());
+                        _Time.setText((String) dataSnapshot.child("eTime").getValue());
 
-                    }catch (Exception ex){
-                        Picasso.get().load(R.drawable.ic_defuser).into(vImg0);
-                        Toast.makeText(PostCarD.this, "Picasso.get() Error"+ex, Toast.LENGTH_SHORT).show();
+                        Owna=(String) dataSnapshot.child("eOwner").getValue();
+
+                        try {
+                            //Picasso.get().load((String) dataSnapshot.child("cImg0").getValue()).into(vImg0);
+                            Counta();
+
+                        }catch (Exception ex){
+                            Picasso.get().load(R.drawable.ic_defuser).into(vImg0);
+                            Toast.makeText(PostEstateD.this, "Picasso.get() Error"+ex, Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (Exception esx){
+                        Toast.makeText(PostEstateD.this, "Error parsing the selected post\n"+esx.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -186,7 +162,7 @@ public class PostCarD extends AppCompatActivity {
     }
 
     private void Counta(){
-        DatabaseReference dref3 = FirebaseDatabase.getInstance().getReference("Posteds/Vehicles/"+pat);
+        DatabaseReference dref3 = FirebaseDatabase.getInstance().getReference("Posteds/Estates/"+pat);
         dref3.keepSynced(true);
 
         dref3.addValueEventListener(new ValueEventListener() {
@@ -194,7 +170,7 @@ public class PostCarD extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 imcount= (int) dataSnapshot.getChildrenCount();
 
-                String nod="cImg",fina = null;
+                String nod="eImg",fina = null;
 
                 for (int i=0;i<10;i++){
                     fina=nod+i;
@@ -212,7 +188,7 @@ public class PostCarD extends AppCompatActivity {
                 //Log.e("Urls Array", " Imgs : "+ Arrays.toString(imageUrls) );
                 //Log.e("Urls Array", " Imgs : "+ Arrays.toString(imagelement) );
 
-                CarSlidAdpta adapter = new CarSlidAdpta(PostCarD.this, imagelement);
+                CarSlidAdpta adapter = new CarSlidAdpta(PostEstateD.this, imagelement);
                 viewP.setAdapter(adapter);
             }
 
@@ -224,7 +200,7 @@ public class PostCarD extends AppCompatActivity {
     }
 
     private void Call(){
-        DatabaseReference dref4 = FirebaseDatabase.getInstance().getReference("Task1Admin/"+aowna);
+        DatabaseReference dref4 = FirebaseDatabase.getInstance().getReference("Task1Admin/"+Owna);
         dref4.keepSynced(true);
 
         dref4.addValueEventListener(new ValueEventListener() {
@@ -235,12 +211,12 @@ public class PostCarD extends AppCompatActivity {
                 Intent col=new Intent(Intent.ACTION_CALL);
                 if (Phone.trim().isEmpty()){
                     //col.setData(Uri.parse("",""));
-                    Toast.makeText(PostCarD.this, "No Phone number Provided by the Admin", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostEstateD.this, "No Phone number Provided by the Admin", Toast.LENGTH_SHORT).show();
                 }else {
                     col.setData(Uri.parse("tel:"+Phone));
 
-                    if (ActivityCompat.checkSelfPermission(PostCarD.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                        Toast.makeText(PostCarD.this, "Please Grant permision to Call", Toast.LENGTH_SHORT).show();
+                    if (ActivityCompat.checkSelfPermission(PostEstateD.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                        Toast.makeText(PostEstateD.this, "Please Grant permision to Call", Toast.LENGTH_SHORT).show();
                         ReqPerm();
                     }else {
                         startActivity(col);
@@ -257,7 +233,7 @@ public class PostCarD extends AppCompatActivity {
     }
 
     private void Sms(){
-        DatabaseReference dref4 = FirebaseDatabase.getInstance().getReference("Task1Admin/"+aowna);
+        DatabaseReference dref4 = FirebaseDatabase.getInstance().getReference("Task1Admin/"+Owna);
         dref4.keepSynced(true);
 
         dref4.addValueEventListener(new ValueEventListener() {
@@ -267,12 +243,12 @@ public class PostCarD extends AppCompatActivity {
 
                 Intent col=new Intent(Intent.ACTION_CALL);
                 if (Phone.trim().isEmpty()){
-                    Toast.makeText(PostCarD.this, "No Phone number Provided by the Admin", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostEstateD.this, "No Phone number Provided by the Admin", Toast.LENGTH_SHORT).show();
                 }else {
                     col.setData(Uri.parse("tel:"+Phone));
 
-                    if (ActivityCompat.checkSelfPermission(PostCarD.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-                        Toast.makeText(PostCarD.this, "Please Grant permision to Send SMS", Toast.LENGTH_SHORT).show();
+                    if (ActivityCompat.checkSelfPermission(PostEstateD.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                        Toast.makeText(PostEstateD.this, "Please Grant permision to Send SMS", Toast.LENGTH_SHORT).show();
                         ReqPermSms();
                     }else {
                         startActivity(col);
@@ -288,12 +264,12 @@ public class PostCarD extends AppCompatActivity {
         });
     }
 
-    private void ReqPermSms(){
-        ActivityCompat.requestPermissions(PostCarD.this,new String[]{Manifest.permission.SEND_SMS},1);
+    private void ReqPerm(){
+        ActivityCompat.requestPermissions(PostEstateD.this,new String[]{Manifest.permission.CALL_PHONE},1);
     }
 
-    private void ReqPerm(){
-        ActivityCompat.requestPermissions(PostCarD.this,new String[]{Manifest.permission.CALL_PHONE},1);
+    private void ReqPermSms(){
+        ActivityCompat.requestPermissions(PostEstateD.this,new String[]{Manifest.permission.SEND_SMS},1);
     }
 
     @Override
@@ -302,20 +278,10 @@ public class PostCarD extends AppCompatActivity {
         if (idd==android.R.id.home){
             finish();
 
-            Intent hom=new Intent(PostCarD.this,Casa.class);
-            hom.putExtra("PostUUIDCode","Posts");
+            Intent hom=new Intent(PostEstateD.this,Casa.class);
+            hom.putExtra("PostUUIDCode","PostsE");
             startActivity(hom);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        if (mAuth.getCurrentUser() == null) {
-            //finish();
-            //startActivity(new Intent(this, Login.class));
-        }
     }
 }

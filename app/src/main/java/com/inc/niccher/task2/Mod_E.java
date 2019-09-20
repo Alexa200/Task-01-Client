@@ -5,21 +5,21 @@ package com.inc.niccher.task2;
  */
 
 class Mod_E {
-    String eType,eCounty,eCountySub,eArea,ePrice,eDesc,eImg,eKey,cewner,eTime;
+    String eType,eCounty,eCountySub,eArea,ePrice,eDesc,eImg0,eKey,eOwner,eTime;
 
     public Mod_E() {
     }
 
-    public Mod_E(String eType, String eCounty, String eCountySub, String eArea, String ePrice, String eDesc, String eImg, String eKey, String cewner, String eTime) {
+    public Mod_E(String eType, String eCounty, String eCountySub, String eArea, String ePrice, String eDesc, String eImg0, String eKey, String eOwner, String eTime) {
         this.eType = eType;
         this.eCounty = eCounty;
         this.eCountySub = eCountySub;
         this.eArea = eArea;
         this.ePrice = ePrice;
         this.eDesc = eDesc;
-        this.eImg = eImg;
+        this.eImg0 = eImg0;
         this.eKey = eKey;
-        this.cewner = cewner;
+        this.eOwner = eOwner;
         this.eTime = eTime;
     }
 
@@ -71,12 +71,12 @@ class Mod_E {
         this.eDesc = eDesc;
     }
 
-    public String geteImg() {
-        return eImg;
+    public String geteImg0() {
+        return eImg0;
     }
 
-    public void seteImg(String eImg) {
-        this.eImg = eImg;
+    public void seteImg0(String eImg0) {
+        this.eImg0 = eImg0;
     }
 
     public String geteKey() {
@@ -87,12 +87,12 @@ class Mod_E {
         this.eKey = eKey;
     }
 
-    public String getCewner() {
-        return cewner;
+    public String geteOwner() {
+        return eOwner;
     }
 
-    public void setCewner(String cewner) {
-        this.cewner = cewner;
+    public void seteOwner(String eOwner) {
+        this.eOwner = eOwner;
     }
 
     public String geteTime() {

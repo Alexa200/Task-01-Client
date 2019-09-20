@@ -147,14 +147,13 @@ public class Video_Car extends AppCompatActivity {
             Toast.makeText(Video_Car.this, "Initialisation error ->"+ex, Toast.LENGTH_SHORT).show();
         }
 
-        //PlayNow();
     }
 
 
     private void PlayNow(String Vals) {
 
         try {
-            uri_vid= Uri.parse(String.valueOf(videlement[0]));
+            uri_vid= Uri.parse(Vals);
             mplay.setVideoURI(uri_vid);
             mplay.requestFocus();
             mplay.start();

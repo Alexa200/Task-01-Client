@@ -101,10 +101,17 @@ public class Casa extends AppCompatActivity implements NavigationView.OnNavigati
             FragmentManager frman0=getSupportFragmentManager();
             frman0.beginTransaction().replace(R.id.maincontaina,frags).commit();
 
-        }else {
+        }else if (had.equals("PostsE--")){
             Fragment frags=null;
-            getSupportActionBar().setTitle("Dashboard");
-            frags=new Frag_Home();
+            getSupportActionBar().setTitle("Posts");
+            frags=new Frag_PostE();
+            FragmentManager frman0=getSupportFragmentManager();
+            frman0.beginTransaction().replace(R.id.maincontaina,frags).commit();
+
+        } else {
+            Fragment frags=null;
+            getSupportActionBar().setTitle("Posts");
+            frags=new Frag_PostV();
             FragmentManager frman0=getSupportFragmentManager();
             frman0.beginTransaction().replace(R.id.maincontaina,frags).commit();
         }
@@ -202,13 +209,13 @@ public class Casa extends AppCompatActivity implements NavigationView.OnNavigati
         Fragment frags=null;
 
         switch (item.getItemId()){
-            case R.id.nav_home:{
+            /*case R.id.nav_home:{
                 frags=new Frag_Home();
                 getSupportActionBar().setTitle("Dashboard");
                 FragmentManager frmanh=getSupportFragmentManager();
                 frmanh.beginTransaction().replace(R.id.maincontaina,frags).commit();
                 break;
-            }case R.id.nav_postv:{
+            }*/case R.id.nav_postv:{
                 frags=new Frag_PostV();
                 getSupportActionBar().setTitle("Posted Vehicles");
                 FragmentManager frman2=getSupportFragmentManager();
